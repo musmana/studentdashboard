@@ -1,0 +1,37 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+
+<h2>{{ student.name }} — {{ student.class }}</h2>
+<p>Roll No: {{ student.roll_no }}</p>
+
+<h3>Subject Marks</h3>
+<table>
+    <tr>
+        <th>Subject</th>
+        <th>Marks</th>
+        <th>Status</th>
+    </tr>
+    {% for subject in student.subjects %}
+    <tr class="{% if subject.marks >= 50 %}pass{% else %}fail{% endif %}">
+        <td>{{ subject.name }}</td>
+        <td>{{ subject.marks }}</td>
+        <td>
+            {% if subject.marks >= 50 %}
+                ✅ Pass
+            {% else %}
+                ❌ Fail
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h3>Overall Progress</h3>
+<div class="progress-bar">
+    <div class="progress" style="width: {{ progress }}%">{{ progress }}%</div>
+</div>
+
+<h3>Performance Chart</h3>
+<canvas id="chartCanvas"></canvas>
+
+{% endblock %}
